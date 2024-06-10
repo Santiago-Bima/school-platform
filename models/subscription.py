@@ -2,7 +2,7 @@ from user import User
 from subject import Subject
 
 class Suscription:
-  def __init__ (self, subject=None, user=None, inscription_date='', id_suscription=0, marks=None):
+  def __init__ (self, subject=None, user=None, inscription_date=None, id_suscription=None, marks=None):
     self._subject = subject if subject is not None else Subject()
     self._user = user if user is not None else User()
     self._inscription_date = inscription_date

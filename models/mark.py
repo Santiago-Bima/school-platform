@@ -1,5 +1,5 @@
 class Mark:
-  def __init__(self, id_mark=0, id_suscription=0, mark=0, date=''):
+  def __init__(self, id_mark=None, id_suscription=None, mark=None, date=None):
     self._id_mark = id_mark
     self._id_suscription = id_suscription
     self._mark = mark,

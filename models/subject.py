@@ -1,7 +1,7 @@
 from school_platform.models.grade import Grade
 
 class Subject:
-  def __init__(self, id=0, name='', price=0, begining_date='', final_date='', grade=None, suscriptions=None):
+  def __init__(self, id=None, name=None, price=None, begining_date=None, final_date=None, grade=None, suscriptions=None):
     self._id = id
     self._name = name
     self._price = price
