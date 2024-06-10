@@ -1,12 +1,13 @@
-from grade import Grade
+from school_platform.models.grade import Grade
 
 class Subject:
-  def __init__(self, id=0, name='', price=0, final_date='', grade=None, suscriptions=None):
+  def __init__(self, id=0, name='', price=0, begining_date='', final_date='', grade=None, suscriptions=None):
     self._id = id
     self._name = name
     self._price = price
+    self._begining_date = begining_date
     self._final_date = final_date
-    self._grade = grade if grade is not None else Grade()
+    self._grade = grade if grade is not None else Grade.FIRST
     self._suscriptions = suscriptions if suscriptions is not None else []
 
   @property
@@ -33,6 +34,14 @@ class Subject:
   def price(self, price):
       self._price = price
 
+  @property
+  def begining_date(self):
+      return self._begining_date
+
+  @begining_date.setter
+  def final_date(self, begining_date):
+      self._begining_date = begining_date
+      
   @property
   def final_date(self):
       return self._final_date

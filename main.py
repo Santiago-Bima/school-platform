@@ -4,9 +4,10 @@ import os
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 
 from school_platform.controllers.user_controller import UserController
+from school_platform.controllers.subject_controller import SubjectController
 
 
-def admin_actions(user_controller, username):
+def admin_actions(user_controller, subject_controller, username):
   log_out = False
   while True:
     if log_out:
@@ -15,9 +16,31 @@ def admin_actions(user_controller, username):
     print()
     
     if action == 0:
+      while True:
+      # TODO: Ver informacion de cursos
+      #           se puede elegir que curso y dentro se puede ver todos los alumnos y sus promedios
+      # TODO: editar cursos
+      # TODO: insertar cursos
+      # TODO: eliminar curso
+      # TODO: add mark
+      #         desplegara una lista de cursos donde dejara elegir el curso, se vera lista de usuarios, se elegira usuario y se podra añadir, editar o eliminar notas
     
-    
-      pass
+        request = int(input('Options: \n See subjects (0) \n Edit subject (1) \n Insert subject (2) \n Delete subject (3) \n Marks menu (4) \n Go back (5) \n'))
+        
+        if request == 0:
+          pass
+        elif request == 1:
+          pass
+        elif request == 2:
+          pass
+        elif request == 3:
+          pass
+        elif request == 4:
+          pass
+        elif request == 5:
+          break
+        else:
+          print('The number is wrong, try again')
     
     
     elif action == 1:
@@ -48,11 +71,13 @@ def admin_actions(user_controller, username):
         print('The number is wrong, try again')
 
 def students_actions():
+  # TODO: El usuario debe ser capaz de darse de alta a un curso, darse de baja, y ver los cursos inscriptos con su promedio y notas
   pass
 
 def main():
   
   user_controller = UserController()
+  subject_controller = SubjectController()
   
   while True:
     log = user_controller.access()
@@ -64,7 +89,7 @@ def main():
     print()
 
     if log.user_type == 'ADMIN':
-      if admin_actions(user_controller, log.username):
+      if admin_actions(user_controller, subject_controller, log.username):
         return
     else:
       students_actions()
