@@ -1,12 +1,15 @@
 from models.user_type import UserType
 
 class User:
-  def __init__(self, id=0, username='', password='', user_type=None, suscriptions=None):
+  def __init__(self, id=None, username=None, password=None, user_type=None, suscriptions=None):
     self._id = id
     self._username = username
     self._password = password
     self._user_type = user_type if user_type is not None else UserType.STUDENT
     self._suscriptions = suscriptions if suscriptions is not None else []
+
+  def __str__ (self):
+    return f'{self._username} - type: {self._user_type} - suscriptions: {self._suscriptions}'
 
   @property
   def id(self):

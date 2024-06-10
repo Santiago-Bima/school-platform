@@ -1,7 +1,6 @@
 from school_platform.services.implementations.user_service_impl import UserServiceImpl
 from school_platform.models.user import User
 from school_platform.models.user_type import UserType
-from school_platform.dtos.user_dto import UserDto
 
 class UserController:
   def __init__(self):
@@ -58,7 +57,6 @@ class UserController:
   def get_all(self):
     users = self._service.get_all()
     for i in users:
-      i = UserDto(username=i.username, user_type=i.user_type)
       print(i.__str__())
     print()
   

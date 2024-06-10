@@ -1,7 +1,6 @@
 from services.user_service import UserService
 from school_platform.repositories.user_repository import UserRepository
 from school_platform.models.user import User
-from school_platform.dtos.user_dto import UserDto
 from school_platform.models.user_type import UserType
 
 class UserServiceImpl(UserService):
@@ -45,7 +44,7 @@ class UserServiceImpl(UserService):
       return False
     
     if user.password == password:
-      user_dto = UserDto(id=user.id, username=user.username, user_type=user.user_type.name)
+      user_dto = User(id=None, username=user.username, user_type=user.user_type)
       return user_dto
     
     print('The password is invalid')
