@@ -80,3 +80,10 @@ class UserServiceImpl(UserService):
     if self._repository.delete(id):
       print('The user has been deleted')
     print()
+  
+  def get_by_id(self, id):
+    user = self._repository.get_user_by_id(id)
+
+    user = User(id=id, username=user[0], password=user[1], user_type=UserType(user[2]))
+    
+    return user

@@ -1,7 +1,7 @@
 class Mark:
-  def __init__(self, id_mark=None, id_suscription=None, mark=None, date=None):
+  def __init__(self, id_mark=None, id_subscription=None, mark=None, date=None):
     self._id_mark = id_mark
-    self._id_suscription = id_suscription
+    self._id_subscription = id_subscription
     self._mark = mark,
     self._date = date
   
@@ -14,12 +14,12 @@ class Mark:
     self._id_mark = id
   
   @property
-  def id_suscription(self):
-    return self._id_suscription
+  def id_subscription(self):
+    return self._id_subscription
 
-  @id_suscription.setter
-  def id_suscription(self, id):
-    self._id_suscription = id
+  @id_subscription.setter
+  def id_subscription(self, id):
+    self._id_subscription = id
   
   @property
   def mark(self):

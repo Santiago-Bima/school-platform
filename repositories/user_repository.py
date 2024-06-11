@@ -85,3 +85,20 @@ class UserRepository:
         Database.close_connection(connection)
     else:
       return None
+  
+  def get_user_by_id(self, id):
+    connection = Database.get_connection()
+    if connection:
+      cursor = connection.cursor()
+      try:
+        cursor.execute(f"SELECT * FROM users where id=%s", (id,))
+        rta = cursor.fetchone()
+        return rta
+      except Exception as e:
+        print(f"Error executing query: {e}")
+        return None
+      finally:
+        cursor.close()
+        Database.close_connection(connection)
+    else:
+      return None

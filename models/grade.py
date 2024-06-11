@@ -1,6 +1,6 @@
 from enum import Enum
 
 class Grade(Enum):
-    FIRST = 1
-    SECOND = 2
-    THIRD = 3
+    I = 1
+    II = 2
+    III = 3

@@ -17,8 +17,6 @@ def admin_actions(user_controller, subject_controller, username):
     
     if action == 0:
       while True:
-      # TODO: Ver informacion de cursos
-      #           se puede elegir que curso y dentro se puede ver todos los alumnos y sus promedios
       # TODO: editar cursos
       # TODO: insertar cursos
       # TODO: eliminar curso
@@ -28,7 +26,7 @@ def admin_actions(user_controller, subject_controller, username):
         request = int(input('Options: \n See subjects (0) \n Edit subject (1) \n Insert subject (2) \n Delete subject (3) \n Marks menu (4) \n Go back (5) \n'))
         
         if request == 0:
-          pass
+          subject_controller.get_all()
         elif request == 1:
           pass
         elif request == 2:
@@ -76,6 +74,7 @@ def students_actions():
 
 def main():
   
+  
   user_controller = UserController()
   subject_controller = SubjectController()
   
@@ -88,7 +87,7 @@ def main():
     print(f'Welcome {log.username}!!')
     print()
 
-    if log.user_type == 'ADMIN':
+    if log.user_type.name == 'ADMIN':
       if admin_actions(user_controller, subject_controller, log.username):
         return
     else:

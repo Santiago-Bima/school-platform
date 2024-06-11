@@ -1,15 +1,18 @@
 from school_platform.models.grade import Grade
 
 class Subject:
-  def __init__(self, id=None, name=None, price=None, begining_date=None, final_date=None, grade=None, suscriptions=None):
+  def __init__(self, id=None, name=None, price=None, begining_date=None, final_date=None, grade=None, subscriptions=None):
     self._id = id
     self._name = name
     self._price = price
     self._begining_date = begining_date
     self._final_date = final_date
     self._grade = grade if grade is not None else Grade.FIRST
-    self._suscriptions = suscriptions if suscriptions is not None else []
+    self._subscriptions = subscriptions if subscriptions is not None else []
 
+  def __str__(self):
+    return f'{self._name} {self._grade.name}: ${self._price} ({self._begining_date} - {self._final_date})'
+    
   @property
   def id(self):
       return self._id
@@ -59,16 +62,16 @@ class Subject:
       self._grade = grade
       
   @property
-  def suscriptions(self):
-      return self._suscriptions
+  def subscriptions(self):
+      return self._subscriptions
 
-  @suscriptions.setter
-  def suscriptions(self, suscriptions):
-      self._suscriptions = suscriptions
+  @subscriptions.setter
+  def subscriptions(self, subscriptions):
+      self._subscriptions = subscriptions
       
-  def add_suscription(self, suscription):
-    self._suscriptions.append(suscription)
+  def add_subscription(self, subscription):
+    self._subscriptions.append(subscription)
   
-  def remove_suscription(self, suscription):
-    if suscription in self._suscriptions:
-      self._suscriptions.remove(suscription)
+  def remove_subscription(self, subscription):
+    if subscription in self._subscriptions:
+      self._subscriptions.remove(subscription)

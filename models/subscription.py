@@ -1,7 +1,7 @@
-from user import User
-from subject import Subject
+from school_platform.models.user import User
+from school_platform.models.subject import Subject
 
-class Suscription:
+class Subscription:
   def __init__ (self, subject=None, user=None, inscription_date=None, id_suscription=None, marks=None):
     self._subject = subject if subject is not None else Subject()
     self._user = user if user is not None else User()
@@ -55,4 +55,9 @@ class Suscription:
   def remove_mark(self, mark):
     if mark in self._marks:
       self._marks.remove(mark)
-    
+  
+  def get_average(self):
+    total = 0
+    for i in self._marks:
+      total += i.mark[0]
+    return str(round(total/len(self._marks)))

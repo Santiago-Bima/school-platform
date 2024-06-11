@@ -24,3 +24,7 @@ class UserService(ABC):
   @abstractclassmethod
   def delete(self, id):
     pass
+  
+  @abstractclassmethod
+  def get_by_id(self, id):
+    pass
