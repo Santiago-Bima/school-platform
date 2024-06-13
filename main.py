@@ -17,7 +17,6 @@ def admin_actions(user_controller, subject_controller, username):
     
     if action == 0:
       while True:
-      # TODO: editar cursos
       # TODO: insertar cursos
       # TODO: eliminar curso
       # TODO: add mark
@@ -30,7 +29,7 @@ def admin_actions(user_controller, subject_controller, username):
         elif request == 1:
           subject_controller.update()
         elif request == 2:
-          pass
+          subject_controller.insert()
         elif request == 3:
           pass
         elif request == 4:

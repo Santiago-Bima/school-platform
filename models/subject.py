@@ -7,7 +7,7 @@ class Subject:
     self._price = price
     self._begining_date = begining_date
     self._final_date = final_date
-    self._grade = grade if grade is not None else Grade.FIRST
+    self._grade = grade if grade is not None else Grade.I
     self._subscriptions = subscriptions if subscriptions is not None else []
 
   def __str__(self):

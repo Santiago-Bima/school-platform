@@ -71,7 +71,7 @@ class UserServiceImpl(UserService):
     
     result = self._repository.update(user, id)
     if result:
-      print(f'The user: {user.username} has been updated in.')
+      print(f'The user: {user.username} has been updated.')
       return result
     else:
       return False

@@ -48,7 +48,25 @@ class SubjectServiceImpl(SubjectService):
     
     result = self._repository.update(subject, id)
     if result:
-      print(f'The subject: {subject.name} {subject.grade.name} has been updated in.')
+      print(f'The subject: {subject.name} {subject.grade.name} has been updated.')
       return result
     else:
       return False
+  
+  def insert(self, subject):
+    subject.name = subject.name.lower().strip()
+    
+    existing_subject = self._repository.get_by_name_and_grade(subject.name, subject.grade.value)
+    if existing_subject is not None and existing_subject[0] != id:
+      print('There is already a subject with the same name and grade. Please choose another one.')
+      print()
+      return False
+    
+    result = self._repository.insert(subject)
+    if result:
+      print(f'The subject: {subject.name} {subject.grade.name} has been inserted.')
+      return result
+    else:
+      return False
+  
+  

@@ -36,7 +36,6 @@ class SubjectController:
       print(f'-- {user.username} - Average mark: {i.get_average()}')
     print()
   
-  
   def update(self):
     subjects = self.get_all()
     while True:
@@ -85,7 +84,7 @@ class SubjectController:
           while True:
             new_price = int(input('Insert the price: '))
             if new_price < 0:
-              print("The password can't minor than 0")
+              print("The price can't be minor than 0")
               continue
               
             subject_updated.price = new_price
@@ -150,6 +149,62 @@ class SubjectController:
         break
     
       rta = self._service.update(subject_updated, old_subject.id)
+      if rta:
+        print()
+        break
+  
+  def insert(self):
+    print()
+    print('Insert new subject')
+    
+    while True:
+      subject = Subject()
+      
+      while True:
+        name = str(input('Insert the name: '))
+        if name == '' or name.isspace():
+          print("The name can't be empty")
+          continue
+        subject.name = name
+        break
+      
+      while True:
+        price = int(input('Insert the price: '))
+        if price < 0:
+          print("The price can't be minor than 0")
+          continue
+          
+        subject.price = price
+        break
+      
+      while True:
+        begining_date = str(input('Insert the begining date (format: yyyy-MM-dd): '))
+        if not date_validation(begining_date):
+          print("The format is wrong")
+          continue
+          
+        subject.begining_date = begining_date
+        break
+        
+      while True:
+        new_final_date = str(input('Insert the final date (format: yyyy-MM-dd): '))
+        if not date_validation(new_final_date):
+          print("The format is wrong")
+          continue
+          
+        subject.final_date = new_final_date
+        break
+      
+      while True:
+        new_grade = int(input('Insert the grade (1 2 3): '))
+        if new_grade < 1 or new_grade > 3:
+          print("The number is wrong")
+          continue
+          
+        subject.grade = Grade(new_grade)
+        break
+    
+      rta = self._service.insert(subject)
       if rta:
         print()
         break

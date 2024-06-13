@@ -12,3 +12,7 @@ class SubjectService(ABC):
   @abstractclassmethod
   def update(self, subject, id):
     pass
+  
+  @abstractclassmethod
+  def insert(self, subject):
+    pass
