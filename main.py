@@ -26,9 +26,9 @@ def admin_actions(user_controller, subject_controller, username):
         request = int(input('Options: \n See subjects (0) \n Edit subject (1) \n Insert subject (2) \n Delete subject (3) \n Marks menu (4) \n Go back (5) \n'))
         
         if request == 0:
-          subject_controller.get_all()
+          subject_controller.get_details()
         elif request == 1:
-          pass
+          subject_controller.update()
         elif request == 2:
           pass
         elif request == 3:

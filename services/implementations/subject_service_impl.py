@@ -34,6 +34,21 @@ class SubjectServiceImpl(SubjectService):
         marks_objects.append(mark)
       subscription = Subscription(id_suscription=i[2], subject=rta, user=User(id=i[3]), marks=marks_objects)
       subscriptions_objects.append(subscription)
-    rta = Subject(name=rta[1], price=rta[2], begining_date=rta[3], final_date=rta[4], grade=Grade(rta[5]), subscriptions=subscriptions_objects)
+    rta = Subject(id=rta[0], name=rta[1], price=rta[2], begining_date=rta[3], final_date=rta[4], grade=Grade(rta[5]), subscriptions=subscriptions_objects)
     return rta
     
+  def update(self, subject, id):
+    subject.name = subject.name.lower().strip()
+    
+    existing_subject = self._repository.get_by_name_and_grade(subject.name, subject.grade.value)
+    if existing_subject is not None and existing_subject[0] != id:
+      print('There is already a subject with the same name and grade. Please choose another one.')
+      print()
+      return False
+    
+    result = self._repository.update(subject, id)
+    if result:
+      print(f'The subject: {subject.name} {subject.grade.name} has been updated in.')
+      return result
+    else:
+      return False

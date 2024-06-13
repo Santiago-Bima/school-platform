@@ -34,3 +34,20 @@ class SubjectRepository:
         Database.close_connection(connection)
     else:
       return None
+  
+  def update(self, subject, id):
+    connection = Database.get_connection()
+    if connection:
+      cursor = connection.cursor()
+      try:
+        cursor.execute(f"UPDATE subjects SET name=%s,price=%s,begining_date=%s, final_date=%s, grade=%s WHERE id=%s", (subject.name, subject.price, subject.begining_date, subject.final_date, subject.grade.value ,id))
+        connection.commit()
+        return True
+      except Exception as e:
+        print(f"Error executing query: {e}")
+        return False
+      finally:
+        cursor.close()
+        Database.close_connection(connection)
+    else:
+      return False

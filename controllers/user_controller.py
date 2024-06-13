@@ -82,7 +82,7 @@ class UserController:
     while True:
       while True:
         change_username = str(input('New username? y/n: '))
-        change_username = change_username.lower()
+        change_username = change_username.lower().strip()
         if change_username != 'y' and change_username != 'n':
           print('The input is wrong, try again')
           print()
@@ -91,7 +91,7 @@ class UserController:
         if change_username == 'y':
           while True:
             new_username = str(input('Insert the new username: '))
-            if new_username == '' or username.isspace():
+            if new_username == '' or new_username.isspace():
               print("The username can't be empty")
               continue
             user_updated.username = new_username
@@ -100,7 +100,7 @@ class UserController:
       
       while True:
         change_psw = str(input('New password? y/n: '))
-        change_psw = change_psw.lower()
+        change_psw = change_psw.lower().strip()
         if change_psw != 'y' and change_psw != 'n':
           print('The input is wrong, try again')
           print()
@@ -119,7 +119,7 @@ class UserController:
       
       while True:
         change_type = str(input('Change user type? y/n: '))
-        change_type = change_type.lower()
+        change_type = change_type.lower().strip()
         if change_type != 'y' and change_type != 'n':
           print('The input is wrong, try again')
           print()

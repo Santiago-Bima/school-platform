@@ -60,12 +60,12 @@ class UserServiceImpl(UserService):
     return users
 
   def update(self, user, id):
-    user.username = user.username.lower()
+    user.username = user.username.lower().strip()
     user.password = user.password.strip()
     
     existing_user = self._repository.get_user_by_name(user.username)
     if existing_user is not None and existing_user[3] != id:
-      print('There is already a user with the same username. Please choose another one.')
+      print('There is already an user with the same username. Please choose another one.')
       print()
       return False
     

@@ -42,7 +42,7 @@ class Subject:
       return self._begining_date
 
   @begining_date.setter
-  def final_date(self, begining_date):
+  def begining_date(self, begining_date):
       self._begining_date = begining_date
       
   @property
