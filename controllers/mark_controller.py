@@ -37,8 +37,51 @@ class MarkController:
     self._mark_service.insert(mark)
     print()
   
-  def update(self):
-    pass
+  def update(self, mark):
+    print(mark)
+    print()
+    
+    mark.mark = mark.mark[0]
+    while True:
+      while True:
+        change_mark = str(input('New mark? y/n: ')).lower().strip()
+        if change_mark != 'y' and change_mark != 'n':
+          print('The input is wrong, try again')
+          print()
+          continue
+        
+        if change_mark == 'y':
+          while True:
+            new_mark = int(input('Insert the new mark: '))
+            if new_mark < 1 or new_mark > 10:
+              print("The mark must be between 1 and 10")
+              continue
+            mark.mark = new_mark
+            break
+        break
+      
+      print()
+      while True:
+        change_date = str(input('New date? y/n: ')).lower().strip()
+        if change_date != 'y' and change_date != 'n':
+          print('The input is wrong, try again')
+          print()
+          continue
+        
+        if change_date == 'y':
+          while True:
+            new_date = str(input('Insert the new date: '))
+            if not date_validation(new_date):
+              print("The format is wrong")
+              continue
+            mark.date = new_date
+            break
+        break
+      
+      rta = self._mark_service.update(mark, mark.id_mark)
+      if rta:
+        print()
+        break
   
   def delete(self):
     pass

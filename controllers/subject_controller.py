@@ -293,7 +293,20 @@ class SubjectController:
           if request == 0:
             self._mark_controller.insert(subscriptions[user_nro].id_subscription)
           elif request == 1:
-            self._mark_controller.update()
+            print()
+            while True:
+              mark_nro = int(input(f'Which mark do you want to edit? (Go back: {len(marks)}): '))
+              
+              if mark_nro < 0 or mark_nro > len(marks)-1:
+                if len(marks):
+                  print()
+                  break
+                print('The number is wrong')
+                print()
+                continue
+              self._mark_controller.update(marks[mark_nro])
+              print()
+              break
           elif request == 2:
             self._mark_controller.delete()
           elif request == 3:
@@ -302,4 +315,5 @@ class SubjectController:
           else:
             print('The number is wrong, try again')
             print()
+          break
       break

@@ -37,4 +37,14 @@ class MarkServiceImpl(MarkService):
     
     return False  
     
+  def update(self, mark, id_mark):
+    rta = self._repository.update(mark, id_mark)
+    
+    if rta:
+      print('The mark has been updated')
+      return True
+    return False
+  
+  def delete(self, id_mark):
+    pass
     
