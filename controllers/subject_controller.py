@@ -14,19 +14,26 @@ class SubjectController:
     subjects = self._service.get_all()
     for i in range(len(subjects)):
       print(str(i) + ' ' + subjects[i].__str__())
-    print()
     
     return subjects
   
   def get_details(self):
     subjects = self.get_all()
+    print(f'{len(subjects)} Go back')
+    print()
     while True:
       subject_nro = int(input('Which subject you want to see in detail? \n Choose a number: '))
       if subject_nro < 0 or subject_nro > len(subjects)-1:
+        if subject_nro == len(subjects):
+          go_back = True
+          break
         print('The number must be any of the list')
         print()
         continue
       break
+    if go_back:
+      print()
+      return
     
     rta = self._service.get_by_name_and_grade(subjects[subject_nro].name, subjects[subject_nro].grade.value)
     print()
