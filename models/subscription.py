@@ -2,11 +2,11 @@ from school_platform.models.user import User
 from school_platform.models.subject import Subject
 
 class Subscription:
-  def __init__ (self, subject=None, user=None, inscription_date=None, id_suscription=None, marks=None):
+  def __init__ (self, subject=None, user=None, inscription_date=None, id_subscription=None, marks=None):
     self._subject = subject if subject is not None else Subject()
     self._user = user if user is not None else User()
     self._inscription_date = inscription_date
-    self._id_suscription = id_suscription
+    self._id_subscription = id_subscription
     self._marks = marks if marks is not None else []
 
   @property
@@ -34,12 +34,12 @@ class Subscription:
     self._inscription_date = inscription_date
   
   @property
-  def id_suscription(self):
-    return self._id_suscription
+  def id_subscription(self):
+    return self._id_subscription
   
-  @id_suscription.setter
-  def id_suscription(self, id_suscription):
-    self._id_suscription = id_suscription
+  @id_subscription.setter
+  def id_subscription(self, id_subscription):
+    self._id_subscription = id_subscription
     
   @property
   def marks(self):
@@ -60,4 +60,8 @@ class Subscription:
     total = 0
     for i in self._marks:
       total += i.mark[0]
-    return str(round(total/len(self._marks)))
+    if len(self._marks) == 0:
+      rta = 'There are no marks'
+    else:
+      rta = str(round(total/len(self._marks)))
+    return rta

@@ -64,7 +64,7 @@ class UserServiceImpl(UserService):
     user.password = user.password.strip()
     
     existing_user = self._repository.get_user_by_name(user.username)
-    if existing_user is not None and existing_user[3] != id:
+    if existing_user and existing_user[3] != id:
       print('There is already an user with the same username. Please choose another one.')
       print()
       return False

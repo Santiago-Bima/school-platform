@@ -3,11 +3,13 @@ from school_platform.services.implementations.user_service_impl import UserServi
 from school_platform.models.subject import Subject
 from school_platform.utils.validate_date import date_validation
 from school_platform.models.grade import Grade
+from school_platform.controllers.mark_controller import MarkController
 
 class SubjectController:
   def __init__(self):
     self._service = SubjectServiceImpl()
     self._user_serv = UserServiceImpl()
+    self._mark_controller = MarkController()
   
   def get_all(self):
     print()
@@ -39,10 +41,10 @@ class SubjectController:
     rta = self._service.get_by_name_and_grade(subjects[subject_nro].name, subjects[subject_nro].grade.value)
     print()
     print(f'Subject: {rta.name}')
-    for i in rta.subscriptions:
-      user = self._user_serv.get_by_id(i.user.id)
-      print(f'-- {user.username} - Average mark: {i.get_average()}')
-    print()
+    for i in range(len(rta.subscriptions)):
+      user = self._user_serv.get_by_id(rta.subscriptions[i].user.id)
+      print(f'{i} -- {user.username} - Average mark: {rta.subscriptions[i].get_average()}')
+    return rta.subscriptions
   
   def update(self):
     go_back = False
@@ -247,3 +249,57 @@ class SubjectController:
     
     id = subjects[subject_nro].id
     self._service.delete(id)
+  
+  def manage_marks(self):
+    subscriptions = self.get_details()
+    print(f'{len(subscriptions)} Go back')
+    print()
+    
+    while True:
+      user_nro = int(input('Select the number of the user to edit their marks: '))
+      
+      if user_nro < 0 or user_nro > len(subscriptions) -1:
+        if(user_nro == len(subscriptions)):
+          print()
+          return
+        print('The number is wrong')
+
+      marks = self._mark_controller.get_marks(subscriptions[user_nro].id_subscription)
+      
+      print()
+      
+      if not marks:
+        while True:
+          request = str(input('You want to add a new mark? y/n: ')).lower().strip()
+          
+          if request != 'y' and request != 'n':
+            print('The answer is not correct, try again')
+            print()
+            continue
+          break
+        
+        if request == 'n':
+          break
+        
+        self._mark_controller.insert(subscriptions[user_nro].id_subscription) 
+      else:
+        for i in range(len(marks)):
+          print(f'{i} - {marks[i].date}: {marks[i].mark[0]}')
+        print()
+        
+        while True:
+          request = int(input('What you want to do? \n Add mark (0) \n Edit mark (1) \n Delete mark (2) \n Go back (3) \n'))
+          
+          if request == 0:
+            self._mark_controller.insert(subscriptions[user_nro].id_subscription)
+          elif request == 1:
+            self._mark_controller.update()
+          elif request == 2:
+            self._mark_controller.delete()
+          elif request == 3:
+            print()
+            break
+          else:
+            print('The number is wrong, try again')
+            print()
+      break

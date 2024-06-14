@@ -11,7 +11,7 @@ from school_platform.models.mark import Mark
 class SubjectServiceImpl(SubjectService):
   def __init__(self):
     self._repository = SubjectRepository()
-    self._suscription_repo = SubscriptionRepository()
+    self._subscription_repo = SubscriptionRepository()
     self._mark_repo = MarkRepository()
   
   def get_all(self):
@@ -24,7 +24,7 @@ class SubjectServiceImpl(SubjectService):
   
   def get_by_name_and_grade(self, name, grade):
     rta = self._repository.get_by_name_and_grade(name, grade)
-    subscriptions = self._suscription_repo.get_by_subject(rta[0])
+    subscriptions = self._subscription_repo.get_by_subject(rta[0])
     subscriptions_objects = []
     for i in subscriptions:
       marks = self._mark_repo.get_by_subscription(i[2])
@@ -32,7 +32,7 @@ class SubjectServiceImpl(SubjectService):
       for j in marks:
         mark = Mark(id_subscription=j[0], mark=j[1], id_mark=j[2], date=j[3])
         marks_objects.append(mark)
-      subscription = Subscription(id_suscription=i[2], subject=rta, user=User(id=i[3]), marks=marks_objects)
+      subscription = Subscription(id_subscription=i[2], subject=rta, user=User(id=i[3]), marks=marks_objects)
       subscriptions_objects.append(subscription)
     rta = Subject(id=rta[0], name=rta[1], price=rta[2], begining_date=rta[3], final_date=rta[4], grade=Grade(rta[5]), subscriptions=subscriptions_objects)
     return rta
@@ -41,7 +41,7 @@ class SubjectServiceImpl(SubjectService):
     subject.name = subject.name.lower().strip()
     
     existing_subject = self._repository.get_by_name_and_grade(subject.name, subject.grade.value)
-    if existing_subject is not None and existing_subject[0] != id:
+    if existing_subject and existing_subject[0] != id:
       print('There is already a subject with the same name and grade. Please choose another one.')
       print()
       return False
@@ -57,7 +57,7 @@ class SubjectServiceImpl(SubjectService):
     subject.name = subject.name.lower().strip()
     
     existing_subject = self._repository.get_by_name_and_grade(subject.name, subject.grade.value)
-    if existing_subject is not None and existing_subject[0] != id:
+    if existing_subject and existing_subject[0] != id:
       print('There is already a subject with the same name and grade. Please choose another one.')
       print()
       return False

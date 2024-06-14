@@ -1,15 +1,15 @@
 from models.user_type import UserType
 
 class User:
-  def __init__(self, id=None, username=None, password=None, user_type=None, suscriptions=None):
+  def __init__(self, id=None, username=None, password=None, user_type=None, subscriptions=None):
     self._id = id
     self._username = username
     self._password = password
     self._user_type = user_type if user_type is not None else UserType.STUDENT
-    self._suscriptions = suscriptions if suscriptions is not None else []
+    self._subscriptions = subscriptions if subscriptions is not None else []
 
   def __str__ (self):
-    return f'{self._username} - type: {self._user_type} - suscriptions: {self._suscriptions}'
+    return f'{self._username} - type: {self._user_type} - subscriptions: {self._subscriptions}'
 
   @property
   def id(self):
@@ -44,16 +44,16 @@ class User:
     self._user_type = user_type
   
   @property
-  def suscriptions(self):
-      return self._suscriptions
+  def subscriptions(self):
+      return self._subscriptions
 
-  @suscriptions.setter
-  def suscriptions(self, suscriptions):
-      self._suscriptions = suscriptions
+  @subscriptions.setter
+  def subscriptions(self, subscriptions):
+      self._subscriptions = subscriptions
       
-  def add_suscription(self, suscription):
-    self._suscriptions.append(suscription)
+  def add_subscription(self, subscription):
+    self._subscriptions.append(subscription)
   
-  def remove_suscription(self, suscription):
-    if suscription in self._suscriptions:
-      self._suscriptions.remove(suscription)
+  def remove_subscription(self, subscription):
+    if subscription in self._subscriptions:
+      self._subscriptions.remove(subscription)
