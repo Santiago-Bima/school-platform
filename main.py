@@ -34,6 +34,7 @@ def admin_actions(user_controller, subject_controller, username):
         elif request == 4:
           subject_controller.manage_marks()
         elif request == 5:
+          print()
           break
         else:
           print('The number is wrong, try again')

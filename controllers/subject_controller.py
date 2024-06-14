@@ -283,11 +283,11 @@ class SubjectController:
         
         self._mark_controller.insert(subscriptions[user_nro].id_subscription) 
       else:
-        for i in range(len(marks)):
-          print(f'{i} - {marks[i].date}: {marks[i].mark[0]}')
-        print()
-        
         while True:
+          for i in range(len(marks)):
+            print(f'{i} - {marks[i].date}: {marks[i].mark[0]}')
+          print()
+        
           request = int(input('What you want to do? \n Add mark (0) \n Edit mark (1) \n Delete mark (2) \n Go back (3) \n'))
           
           if request == 0:

@@ -6,7 +6,7 @@ class MarkRepository:
     if connection:
       cursor = connection.cursor()
       try:
-        cursor.execute(f"SELECT * FROM marks where id_subscription = %s", (id_subscription,))
+        cursor.execute(f"SELECT * FROM marks where id_subscription = %s ORDER BY date ASC", (id_subscription,))
         rta = cursor.fetchall()
         return rta
       except Exception as e:
