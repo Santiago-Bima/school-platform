@@ -16,3 +16,7 @@ class SubjectService(ABC):
   @abstractclassmethod
   def insert(self, subject):
     pass
+  
+  @abstractclassmethod
+  def delete(self, id):
+    pass

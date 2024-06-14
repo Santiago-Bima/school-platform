@@ -18,7 +18,7 @@ class SubjectServiceImpl(SubjectService):
     rta = self._repository.get_all()
     subjects = []
     for i in rta:
-      subject = Subject(name=i[1], price=i[2], begining_date=i[3], final_date=i[4], grade=Grade(i[5]))
+      subject = Subject(id=i[0], name=i[1], price=i[2], begining_date=i[3], final_date=i[4], grade=Grade(i[5]))
       subjects.append(subject)
     return subjects
   
@@ -68,5 +68,10 @@ class SubjectServiceImpl(SubjectService):
       return result
     else:
       return False
+  
+  def delete(self, id):
+    if self._repository.delete(id):
+      print('The subject has been deleted')
+    print()
   
   

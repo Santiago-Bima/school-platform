@@ -18,6 +18,7 @@ class SubjectController:
     return subjects
   
   def get_details(self):
+    go_back = False
     subjects = self.get_all()
     print(f'{len(subjects)} Go back')
     print()
@@ -44,14 +45,23 @@ class SubjectController:
     print()
   
   def update(self):
+    go_back = False
     subjects = self.get_all()
+    print(f'{len(subjects)} Go back')
+    print()
     while True:
       subject_nro = int(input('Which subject you want to edit? \n Choose a number: '))
       if subject_nro < 0 or subject_nro > len(subjects)-1:
+        if subject_nro == len(subjects):
+          go_back = True
+          break
         print('The number must be any of the list')
         print()
         continue
       break
+    if go_back:
+      print()
+      return
     
     old_subject = self._service.get_by_name_and_grade(subjects[subject_nro].name, subjects[subject_nro].grade.value)
     
@@ -215,3 +225,25 @@ class SubjectController:
       if rta:
         print()
         break
+  
+  def delete(self):
+    go_back = False
+    subjects = self.get_all()
+    print(f'{len(subjects)} Go back')
+    print()
+    while True:
+      subject_nro = int(input('Which subject you want to delete? \n Choose a number: '))
+      if subject_nro < 0 or subject_nro > len(subjects)-1:
+        if subject_nro == len(subjects):
+          go_back = True
+          break
+        print('The number must be any of the list')
+        print()
+        continue
+      break
+    if go_back:
+      print()
+      return
+    
+    id = subjects[subject_nro].id
+    self._service.delete(id)

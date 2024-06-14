@@ -17,7 +17,6 @@ def admin_actions(user_controller, subject_controller, username):
     
     if action == 0:
       while True:
-      # TODO: insertar cursos
       # TODO: eliminar curso
       # TODO: add mark
       #         desplegara una lista de cursos donde dejara elegir el curso, se vera lista de usuarios, se elegira usuario y se podra añadir, editar o eliminar notas
@@ -31,7 +30,7 @@ def admin_actions(user_controller, subject_controller, username):
         elif request == 2:
           subject_controller.insert()
         elif request == 3:
-          pass
+          subject_controller.delete()
         elif request == 4:
           pass
         elif request == 5:
