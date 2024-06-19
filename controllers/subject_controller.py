@@ -308,7 +308,18 @@ class SubjectController:
               print()
               break
           elif request == 2:
-            self._mark_controller.delete()
+            mark_nro = int(input(f'Which mark do you want to delete? (Go back: {len(marks)}): '))
+              
+            if mark_nro < 0 or mark_nro > len(marks)-1:
+              if len(marks):
+                print()
+                break
+              print('The number is wrong')
+              print()
+              continue
+            self._mark_controller.delete(marks[mark_nro].id_mark)
+            print()
+            break
           elif request == 3:
             print()
             break

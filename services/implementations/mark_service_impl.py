@@ -46,5 +46,8 @@ class MarkServiceImpl(MarkService):
     return False
   
   def delete(self, id_mark):
-    pass
+    rta = self._repository.delete(id_mark)
     
+    if rta:
+      return True
+    return False

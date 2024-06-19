@@ -83,5 +83,6 @@ class MarkController:
         print()
         break
   
-  def delete(self):
-    pass
+  def delete(self, mark):
+    if self._mark_service.delete(mark):
+      print('The mark has been deleted successfully')

@@ -17,8 +17,6 @@ def admin_actions(user_controller, subject_controller, username):
     
     if action == 0:
       while True:
-      # TODO: add mark
-      #         desplegara una lista de cursos donde dejara elegir el curso, se vera lista de usuarios, se elegira usuario y se podra añadir, editar o eliminar notas
     
         request = int(input('Options: \n See subjects (0) \n Edit subject (1) \n Insert subject (2) \n Delete subject (3) \n Marks menu (4) \n Go back (5) \n'))
         

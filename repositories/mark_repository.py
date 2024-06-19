@@ -68,3 +68,20 @@ class MarkRepository:
         Database.close_connection(connection)
     else:
       return False
+  
+  def delete(self, id_mark):
+    connection = Database.get_connection()
+    if connection:
+      cursor = connection.cursor()
+      try:
+        cursor.execute(f"delete from marks WHERE id_mark=%s", (id_mark,))
+        connection.commit()
+        return True
+      except Exception as e:
+        print(f"Error executing query: {e}")
+        return False
+      finally:
+        cursor.close()
+        Database.close_connection(connection)
+    else:
+      return False
