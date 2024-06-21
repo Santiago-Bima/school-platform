@@ -1,4 +1,5 @@
 from models.user_type import UserType
+from models.grade import Grade
 
 class User:
   def __init__(self, id=None, username=None, password=None, user_type=None, subscriptions=None):
@@ -11,7 +12,7 @@ class User:
   def __str__ (self):
     subjects = []
     for i in self._subscriptions:
-      subjects.append(i.subject[1])
+      subjects.append(f'{i.subject[1]} {Grade(i.subject[5]).name}')
     return f'{self._username} - type: {self._user_type} - subscriptions: {subjects}'
 
   @property
