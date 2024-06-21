@@ -8,7 +8,7 @@ class Subscription:
     self._inscription_date = inscription_date
     self._id_subscription = id_subscription
     self._marks = marks if marks is not None else []
-
+    
   @property
   def subject(self):
     return self._subject
@@ -65,3 +65,6 @@ class Subscription:
     else:
       rta = str(round(total/len(self._marks)))
     return rta
+
+  def __str__ (self):
+    return f'{self.subject.name} {self.subject.grade.name}: ${self.subject.price} - {self.inscription_date} Average: {self.get_average()}'

@@ -76,7 +76,7 @@ def students_actions(subscription_controller, subject_controller, username):
     print()
 
     if request == 0:
-      user_controller.get_all()
+      subscription_controller.get_all(username)
     elif request == 1:
       if user_controller.update(username):
         log_out = True
@@ -84,11 +84,9 @@ def students_actions(subscription_controller, subject_controller, username):
     elif request == 2:
       user_controller.insert()
     elif request == 3:
-      if user_controller.delete(username):
-        log_out = True
-        break
+      return
     elif request == 4:
-      break
+      return True
     else:
       print('The number is wrong, try again')
 
