@@ -9,7 +9,10 @@ class User:
     self._subscriptions = subscriptions if subscriptions is not None else []
 
   def __str__ (self):
-    return f'{self._username} - type: {self._user_type} - subscriptions: {self._subscriptions}'
+    subjects = []
+    for i in self._subscriptions:
+      subjects.append(i.subject[1])
+    return f'{self._username} - type: {self._user_type} - subscriptions: {subjects}'
 
   @property
   def id(self):

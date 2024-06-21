@@ -2,10 +2,16 @@ from services.user_service import UserService
 from school_platform.repositories.user_repository import UserRepository
 from school_platform.models.user import User
 from school_platform.models.user_type import UserType
+from school_platform.repositories.subscription_repository import SubscriptionRepository
+from school_platform.repositories.subject_repository import SubjectRepository
+from school_platform.models.subscription import Subscription
+
 
 class UserServiceImpl(UserService):
   def __init__(self):
     self._repository = UserRepository()
+    self._subscriptions_repository = SubscriptionRepository()
+    self._subject_repository = SubjectRepository()
   
   def insert_user(self, user):
     user.username = user.username.lower()
@@ -54,7 +60,13 @@ class UserServiceImpl(UserService):
     rta = self._repository.get_all()
     users = []
     for i in rta:
-      user = User(username=i[0], user_type=UserType(i[2]).name, id=i[3])
+      subscriptions = self._subscriptions_repository.get_by_user(i[3])
+      subscriptions_objects = []
+      for j in subscriptions:
+        subject = self._subject_repository.get_by_id(j[0])
+        subscription = Subscription(subject=subject)
+        subscriptions_objects.append(subscription)
+      user = User(username=i[0], user_type=UserType(i[2]).name, id=i[3], subscriptions=subscriptions_objects)
       users.append(user)
     
     return users

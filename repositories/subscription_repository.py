@@ -17,3 +17,20 @@ class SubscriptionRepository:
         Database.close_connection(connection)
     else:
       return None
+  
+  def get_by_user(self, id_user):
+    connection = Database.get_connection()
+    if connection:
+      cursor = connection.cursor()
+      try:
+        cursor.execute(f"SELECT * FROM subscriptions where id_user = %s", (id_user,))
+        rta = cursor.fetchall()
+        return rta
+      except Exception as e:
+        print(f"Error executing query: {e}")
+        return None
+      finally:
+        cursor.close()
+        Database.close_connection(connection)
+    else:
+      return None

@@ -5,6 +5,7 @@ sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 
 from school_platform.controllers.user_controller import UserController
 from school_platform.controllers.subject_controller import SubjectController
+from school_platform.controllers.subscription_controller import SubscriptionController
 
 
 def admin_actions(user_controller, subject_controller, username):
@@ -65,15 +66,38 @@ def admin_actions(user_controller, subject_controller, username):
     else:
         print('The number is wrong, try again')
 
-def students_actions():
+def students_actions(subscription_controller, subject_controller, username):
   # TODO: El usuario debe ser capaz de darse de alta a un curso, darse de baja, y ver los cursos inscriptos con su promedio y notas
-  pass
+  log_out = False
+  while True:
+    if log_out:
+      return 
+    request = int(input('What you want to do? \n See subscriptions (0) \n Register in a subject (1) \n Delete a subscription (2) \n Log Out (3) \n Turn Off (4) \n'))
+    print()
+
+    if request == 0:
+      user_controller.get_all()
+    elif request == 1:
+      if user_controller.update(username):
+        log_out = True
+        break
+    elif request == 2:
+      user_controller.insert()
+    elif request == 3:
+      if user_controller.delete(username):
+        log_out = True
+        break
+    elif request == 4:
+      break
+    else:
+      print('The number is wrong, try again')
 
 def main():
   
   
   user_controller = UserController()
   subject_controller = SubjectController()
+  subscription_controller = SubscriptionController()
   
   while True:
     log = user_controller.access()
@@ -88,7 +112,8 @@ def main():
       if admin_actions(user_controller, subject_controller, log.username):
         return
     else:
-      students_actions()
+      if students_actions(subscription_controller, subject_controller, log.username):
+        return
   
   
 if __name__ == "__main__":
