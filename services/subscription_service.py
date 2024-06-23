@@ -6,3 +6,6 @@ class SubscriptionService(ABC):
 
   def subscribe(self, subscription):
     pass
+  
+  def desubscribe(self, id_subscription):
+    pass

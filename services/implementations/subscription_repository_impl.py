@@ -45,3 +45,8 @@ class SubscriptionServiceImpl(SubscriptionService):
     
     if rta:
       print('You have been subscribed correctly')
+  
+  def desubscribe(self, id):
+    if self._repository.delete(id):
+      print('The subscription has been deleted')
+    print()

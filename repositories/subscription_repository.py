@@ -51,3 +51,20 @@ class SubscriptionRepository:
         Database.close_connection(connection)
     else:
       return False
+  
+  def delete(self, id):
+    connection = Database.get_connection()
+    if connection:
+      cursor = connection.cursor()
+      try:
+        cursor.execute(f"DELETE FROM subscriptions WHERE id_subscription=%s", (id,))
+        connection.commit()
+        return True
+      except Exception as e:
+        print(f"Error executing query: {e}")
+        return False
+      finally:
+        cursor.close()
+        Database.close_connection(connection)
+    else:
+      return False

@@ -17,13 +17,14 @@ class SubscriptionController:
     if not subscriptions:
       pass
     
-    for i in subscriptions:
-      print(i.__str__())
-      marks = self._marks_service.get_by_subscription(i.id_subscription)
+    for i in range(len(subscriptions)):
+      print(f'{i} {subscriptions[i].__str__()}')
+      marks = self._marks_service.get_by_subscription(subscriptions[i].id_subscription)
       if marks:
         for j in marks:
           print(f' -- {j.__str__()}')
-    print()
+    
+    return subscriptions
   
   def subscribe(self, username):
     subjects = self._subjects_service.get_all()
@@ -60,5 +61,24 @@ class SubscriptionController:
       new_subscription = Subscription(subject=remaining_subjects[request], user=user)
       
       self._service.subscribe(new_subscription)
+      print()
+      return
+  
+  def desubscribe(self, username):
+    subscriptions = self.get_all(username)
+    print(f'{len(subscriptions)} Go back')
+    print()
+    
+    while True:
+      request = int(input('Which subject you want to desubscribe?: '))
+      if request < 0 or request > len(subscriptions):
+        print('The number is wrong')
+        print()
+        continue
+      
+      if request == len(subscriptions):
+        return
+      
+      self._service.desubscribe(subscriptions[request].id_subscription)
       print()
       return

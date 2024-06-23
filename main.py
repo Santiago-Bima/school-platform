@@ -67,7 +67,6 @@ def admin_actions(user_controller, subject_controller, username):
         print('The number is wrong, try again')
 
 def students_actions(subscription_controller, subject_controller, username):
-  # TODO: El usuario debe ser capaz de darse de alta a un curso, darse de baja
   log_out = False
   while True:
     if log_out:
@@ -77,10 +76,11 @@ def students_actions(subscription_controller, subject_controller, username):
 
     if request == 0:
       subscription_controller.get_all(username)
+      print()
     elif request == 1:
       subscription_controller.subscribe(username)
     elif request == 2:
-      pass
+      subscription_controller.desubscribe(username)
     elif request == 3:
       return
     elif request == 4:
@@ -89,8 +89,6 @@ def students_actions(subscription_controller, subject_controller, username):
       print('The number is wrong, try again')
 
 def main():
-  
-  
   user_controller = UserController()
   subject_controller = SubjectController()
   subscription_controller = SubscriptionController()
