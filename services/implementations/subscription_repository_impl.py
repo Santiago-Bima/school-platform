@@ -30,7 +30,7 @@ class SubscriptionServiceImpl(SubscriptionService):
       subject = self._subject_repository.get_by_id(i[0])
       subject_obj = Subject(name=subject[1], grade=Grade(subject[5]), price=subject[2])
       marks = self._mark_repository.get_by_subscription(i[0])
-      subscription = Subscription(subject=subject_obj, inscription_date=i[1], marks=marks)
+      subscription = Subscription(subject=subject_obj, inscription_date=i[1], marks=marks, id_subscription=i[0])
       subscriptions_obj.append(subscription)
       
     return subscriptions_obj
