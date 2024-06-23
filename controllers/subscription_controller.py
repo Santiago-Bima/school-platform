@@ -18,11 +18,11 @@ class SubscriptionController:
       pass
     
     for i in subscriptions:
-      print(i.__str__() + ' \n')
+      print(i.__str__())
       marks = self._marks_service.get_by_subscription(i.id_subscription)
       if marks:
         for j in marks:
-          print(f'{j.date}: {j.mark}')
+          print(f' -- {j.__str__()}')
     print()
   
   def subscribe(self, username):

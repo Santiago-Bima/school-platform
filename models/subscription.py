@@ -58,11 +58,12 @@ class Subscription:
   
   def get_average(self):
     total = 0
-    for i in self._marks:
-      total += i.mark[0]
     if len(self._marks) == 0:
       rta = 'There are no marks'
     else:
+      for i in self._marks:
+        total += i.mark[0]
+      
       rta = str(round(total/len(self._marks)))
     return rta
 

@@ -10,7 +10,6 @@ class MarkServiceImpl(MarkService):
     marks = self._repository.get_by_subscription(id_subscription)
     
     if not marks:
-      print("There aren't any marks")
       return False
     
     mark_objects = []

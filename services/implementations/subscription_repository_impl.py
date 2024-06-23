@@ -7,6 +7,7 @@ from school_platform.models.subscription import Subscription
 from school_platform.models.user import User
 from school_platform.models.subject import Subject
 from school_platform.models.grade import Grade
+from school_platform.models.mark import Mark
 
 class SubscriptionServiceImpl(SubscriptionService):
   def __init__(self):
@@ -29,8 +30,12 @@ class SubscriptionServiceImpl(SubscriptionService):
     for i in subscriptions:
       subject = self._subject_repository.get_by_id(i[0])
       subject_obj = Subject(id=subject[0] ,name=subject[1], grade=Grade(subject[5]), price=subject[2])
-      marks = self._mark_repository.get_by_subscription(i[0])
-      subscription = Subscription(subject=subject_obj, inscription_date=i[1], marks=marks, id_subscription=i[0])
+      marks = self._mark_repository.get_by_subscription(i[2])
+      marks_obj = []
+      for j in marks:
+        mark = Mark(mark=j[1],date=j[3])
+        marks_obj.append(mark)
+      subscription = Subscription(subject=subject_obj, inscription_date=i[1], marks=marks_obj, id_subscription=i[2])
       subscriptions_obj.append(subscription)
       
     return subscriptions_obj

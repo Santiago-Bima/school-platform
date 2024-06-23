@@ -6,7 +6,7 @@ class Mark:
     self._date = date
   
   def __str__(self):
-    return f'Id subscription:{self._id_subscription} {self._date}: {self._mark[0]}'
+    return f'{self._date}: {self._mark[0]}'
   
   @property
   def id_mark(self):
