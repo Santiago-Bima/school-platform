@@ -34,3 +34,20 @@ class SubscriptionRepository:
         Database.close_connection(connection)
     else:
       return None
+  
+  def insert(self, subscription):
+    connection = Database.get_connection()
+    if connection:
+      cursor = connection.cursor()
+      try:
+        cursor.execute(f"insert into subscriptions SET id_subject=%s, id_user=%s", (subscription.subject.id, subscription.user.id))
+        connection.commit()
+        return True
+      except Exception as e:
+        print(f"Error executing query: {e}")
+        return False
+      finally:
+        cursor.close()
+        Database.close_connection(connection)
+    else:
+      return False
