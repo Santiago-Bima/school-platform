@@ -38,7 +38,7 @@ class UserServiceImpl(UserService):
       print("There isn't an user with that username")
       return False
 
-    user = User(id=user[3], username=user[0], password=user[1], user_type=UserType(user[2]))
+    user = User(id=user[0], username=user[1], password=user[2], user_type=UserType(user[3]))
     
     return user
 
@@ -60,13 +60,13 @@ class UserServiceImpl(UserService):
     rta = self._repository.get_all()
     users = []
     for i in rta:
-      subscriptions = self._subscriptions_repository.get_by_user(i[3])
+      subscriptions = self._subscriptions_repository.get_by_user(i[0])
       subscriptions_objects = []
       for j in subscriptions:
-        subject = self._subject_repository.get_by_id(j[0])
+        subject = self._subject_repository.get_by_id(j[1])
         subscription = Subscription(subject=subject)
         subscriptions_objects.append(subscription)
-      user = User(username=i[0], user_type=UserType(i[2]).name, id=i[3], subscriptions=subscriptions_objects)
+      user = User(username=i[1], user_type=UserType(i[3]).name, id=i[0], subscriptions=subscriptions_objects)
       users.append(user)
     
     return users
@@ -76,7 +76,7 @@ class UserServiceImpl(UserService):
     user.password = user.password.strip()
     
     existing_user = self._repository.get_user_by_name(user.username)
-    if existing_user and existing_user[3] != id:
+    if existing_user and existing_user[0] != id:
       print('There is already an user with the same username. Please choose another one.')
       print()
       return False
@@ -96,6 +96,6 @@ class UserServiceImpl(UserService):
   def get_by_id(self, id):
     user = self._repository.get_user_by_id(id)
 
-    user = User(id=id, username=user[0], password=user[1], user_type=UserType(user[2]))
+    user = User(id=id, username=user[1], password=user[2], user_type=UserType(user[3]))
     
     return user

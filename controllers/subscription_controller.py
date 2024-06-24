@@ -15,7 +15,7 @@ class SubscriptionController:
     subscriptions = self._service.get_by_user(username)
     
     if not subscriptions:
-      pass
+      return
     
     for i in range(len(subscriptions)):
       print(f'{i} {subscriptions[i].__str__()}')
@@ -34,12 +34,13 @@ class SubscriptionController:
     cont = -1
     for i in subjects:
       equal = False
-      for j in subscriptions:
-        if i.id == j.subject.id:
-          equal = True
-          break
-      if equal:
-        continue
+      if subscriptions:
+        for j in subscriptions:
+          if i.id == j.subject.id:
+            equal = True
+            break
+        if equal:
+          continue
       remaining_subjects.append(i)
       cont += 1
       print(f'{cont} {i.__str__()}')

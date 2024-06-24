@@ -18,7 +18,7 @@ class SubscriptionServiceImpl(SubscriptionService):
   
   def get_by_user(self, username):
     user = self._user_repository.get_user_by_name(username)
-    user_id = user[3]
+    user_id = user[0]
     
     subscriptions = self._repository.get_by_user(user_id)
     
@@ -28,14 +28,14 @@ class SubscriptionServiceImpl(SubscriptionService):
     
     subscriptions_obj = []
     for i in subscriptions:
-      subject = self._subject_repository.get_by_id(i[0])
+      subject = self._subject_repository.get_by_id(i[1])
       subject_obj = Subject(id=subject[0] ,name=subject[1], grade=Grade(subject[5]), price=subject[2])
-      marks = self._mark_repository.get_by_subscription(i[2])
+      marks = self._mark_repository.get_by_subscription(i[0])
       marks_obj = []
       for j in marks:
         mark = Mark(mark=j[1],date=j[3])
         marks_obj.append(mark)
-      subscription = Subscription(subject=subject_obj, inscription_date=i[1], marks=marks_obj, id_subscription=i[2])
+      subscription = Subscription(subject=subject_obj, inscription_date=i[3], marks=marks_obj, id_subscription=i[0])
       subscriptions_obj.append(subscription)
       
     return subscriptions_obj

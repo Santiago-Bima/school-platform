@@ -14,7 +14,7 @@ class MarkServiceImpl(MarkService):
     
     mark_objects = []
     for i in marks:
-      mark = Mark(id_subscription = i[0], mark=i[1], id_mark=i[2], date=i[3])
+      mark = Mark(id_subscription = i[3], mark=i[1], id_mark=i[0], date=i[2])
       mark_objects.append(mark)
       
     return mark_objects
