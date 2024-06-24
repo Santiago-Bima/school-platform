@@ -1,18 +1,18 @@
-from abc import ABC, abstractclassmethod
+from abc import ABC, abstractmethod
 
 class MarkService(ABC):
-  @abstractclassmethod
+  @abstractmethod
   def get_by_subscription(self, id_subscription):
     pass
   
-  @abstractclassmethod
+  @abstractmethod
   def insert(self, mark):
     pass
   
-  @abstractclassmethod
+  @abstractmethod
   def update(self, mark, id_mark):
     pass
   
-  @abstractclassmethod
+  @abstractmethod
   def delete(self, id_mark):
     pass

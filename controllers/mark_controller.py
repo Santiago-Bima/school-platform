@@ -16,15 +16,17 @@ class MarkController:
     
     while True:
       number = int(input('Insert the mark: '))
-      
-      if number < 1 or number > 10:
-        print('The mark must be between 1 and 10')
-        print()
-        continue
-      
-      mark.mark = number
-      break
-    
+      try:
+        if number < 1 or number > 10:
+          print('The mark must be between 1 and 10')
+          print()
+          continue
+        
+        mark.mark = number
+        break
+      except ValueError:
+        print('Invalid input. Please enter a number.')
+        
     while True:
       date = str(input('Insert the date (format: yyyy-MM-dd): '))
       if not date_validation(date):
@@ -41,47 +43,36 @@ class MarkController:
     print(mark)
     print()
     
-    mark.mark = mark.mark[0]
+    mark.mark = mark.mark
     while True:
-      while True:
-        change_mark = str(input('New mark? y/n: ')).lower().strip()
-        if change_mark != 'y' and change_mark != 'n':
-          print('The input is wrong, try again')
-          print()
-          continue
-        
+      try:
+        change_mark = input('Change mark? y/n: ').lower().strip()
         if change_mark == 'y':
-          while True:
-            new_mark = int(input('Insert the new mark: '))
-            if new_mark < 1 or new_mark > 10:
-              print("The mark must be between 1 and 10")
-              continue
-            mark.mark = new_mark
-            break
+          new_mark = int(input('Insert the new mark: '))
+          if new_mark < 1 or new_mark > 10:
+            print("The mark must be between 1 and 10")
+            continue
+          mark.mark = new_mark
         break
-      
-      print()
-      while True:
-        change_date = str(input('New date? y/n: ')).lower().strip()
-        if change_date != 'y' and change_date != 'n':
-          print('The input is wrong, try again')
-          print()
-          continue
-        
+      except ValueError:
+        print('Invalid input. Please enter a number.')
+
+    print()
+    while True:
+      try:
+        change_date = input('Change date? y/n: ').lower().strip()
         if change_date == 'y':
-          while True:
-            new_date = str(input('Insert the new date: '))
-            if not date_validation(new_date):
-              print("The format is wrong")
-              continue
-            mark.date = new_date
-            break
+          new_date = input('Insert the new date (format: yyyy-MM-dd): ')
+          if not date_validation(new_date):
+            print("Invalid date format. Please use yyyy-MM-dd.")
+            continue
+          mark.date = new_date
         break
-      
-      rta = self._mark_service.update(mark, mark.id_mark)
-      if rta:
-        print()
-        break
+      except ValueError:
+        print('Invalid input. Please enter a valid date.')
+
+    self._mark_service.update(mark, mark.id_mark)
+    print()
   
   def delete(self, mark):
     if self._mark_service.delete(mark):

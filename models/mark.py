@@ -2,11 +2,11 @@ class Mark:
   def __init__(self, id_mark=None, id_subscription=None, mark=None, date=None):
     self._id_mark = id_mark
     self._id_subscription = id_subscription
-    self._mark = mark,
+    self._mark = mark
     self._date = date
   
   def __str__(self):
-    return f'{self._date}: {self._mark[0]}'
+    return f'{self._date}: {self._mark}'
   
   @property
   def id_mark(self):

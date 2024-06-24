@@ -15,27 +15,36 @@ class SubjectServiceImpl(SubjectService):
     self._mark_repo = MarkRepository()
   
   def get_all(self):
-    rta = self._repository.get_all()
-    subjects = []
-    for i in rta:
-      subject = Subject(id=i[0], name=i[1], price=i[2], begining_date=i[3], final_date=i[4], grade=Grade(i[5]))
-      subjects.append(subject)
+    subjects = [ 
+      Subject(id=i[0], name=i[1], price=i[2], begining_date=i[3], final_date=i[4], grade=Grade(i[5]))
+      for i in self._repository.get_all()
+    ]
     return subjects
   
   def get_by_name_and_grade(self, name, grade):
-    rta = self._repository.get_by_name_and_grade(name, grade)
-    subscriptions = self._subscription_repo.get_by_subject(rta[0])
-    subscriptions_objects = []
-    for i in subscriptions:
-      marks = self._mark_repo.get_by_subscription(i[0])
-      marks_objects = []
-      for j in marks:
-        mark = Mark(id_subscription=j[3], mark=j[1], id_mark=j[0], date=j[2])
-        marks_objects.append(mark)
-      subscription = Subscription(id_subscription=i[0], subject=rta, user=User(id=i[2]), marks=marks_objects)
-      subscriptions_objects.append(subscription)
-    rta = Subject(id=rta[0], name=rta[1], price=rta[2], begining_date=rta[3], final_date=rta[4], grade=Grade(rta[5]), subscriptions=subscriptions_objects)
-    return rta
+    subject_data = self._repository.get_by_name_and_grade(name, grade)
+    if not subject_data:
+      return None
+
+    subscriptions_data = self._subscription_repo.get_by_subject(subject_data[0])
+    subscriptions = [
+      Subscription(
+        id_subscription=sub_data[0],
+        subject=subject_data,
+        user=User(id=sub_data[2]),
+        marks=[
+          Mark(id_subscription=mark[3], mark=mark[1], id_mark=mark[0], date=mark[2])
+          for mark in self._mark_repo.get_by_subscription(sub_data[0])
+        ]
+      )
+      for sub_data in subscriptions_data
+    ]
+
+    return Subject(
+      id=subject_data[0], name=subject_data[1], price=subject_data[2],
+      begining_date=subject_data[3], final_date=subject_data[4],
+      grade=Grade(subject_data[5]), subscriptions=subscriptions
+    )
     
   def update(self, subject, id):
     subject.name = subject.name.lower().strip()
@@ -49,9 +58,8 @@ class SubjectServiceImpl(SubjectService):
     result = self._repository.update(subject, id)
     if result:
       print(f'The subject: {subject.name} {subject.grade.name} has been updated.')
-      return result
-    else:
-      return False
+    
+    return result
   
   def insert(self, subject):
     subject.name = subject.name.lower().strip()
@@ -65,9 +73,8 @@ class SubjectServiceImpl(SubjectService):
     result = self._repository.insert(subject)
     if result:
       print(f'The subject: {subject.name} {subject.grade.name} has been inserted.')
-      return result
-    else:
-      return False
+    
+    return result
   
   def delete(self, id):
     if self._repository.delete(id):

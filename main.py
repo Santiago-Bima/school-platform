@@ -56,6 +56,7 @@ def admin_actions(user_controller, subject_controller, username):
             log_out = True
             break
         elif request == 4:
+          print()
           break
         else:
           print('The number is wrong, try again')

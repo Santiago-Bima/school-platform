@@ -1,30 +1,30 @@
-from abc import ABC, abstractclassmethod
+from abc import ABC, abstractmethod
 
 class UserService(ABC):
-  @abstractclassmethod
+  @abstractmethod
   def insert_user(self, user):
     pass
   
-  @abstractclassmethod
+  @abstractmethod
   def get_by_username(self, username):
     pass
   
-  @abstractclassmethod
+  @abstractmethod
   def get_all(self):
     pass
   
-  @abstractclassmethod
+  @abstractmethod
   def user_validation(self, username, password):
     pass
   
-  @abstractclassmethod
+  @abstractmethod
   def update(self, user, id):
     pass
   
-  @abstractclassmethod
+  @abstractmethod
   def delete(self, id):
     pass
   
-  @abstractclassmethod
+  @abstractmethod
   def get_by_id(self, id):
     pass

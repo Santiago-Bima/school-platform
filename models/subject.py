@@ -68,10 +68,3 @@ class Subject:
   @subscriptions.setter
   def subscriptions(self, subscriptions):
       self._subscriptions = subscriptions
-      
-  def add_subscription(self, subscription):
-    self._subscriptions.append(subscription)
-  
-  def remove_subscription(self, subscription):
-    if subscription in self._subscriptions:
-      self._subscriptions.remove(subscription)

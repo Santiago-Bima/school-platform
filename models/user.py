@@ -1,5 +1,5 @@
-from models.user_type import UserType
-from models.grade import Grade
+from school_platform.models.user_type import UserType
+from school_platform.models.grade import Grade
 
 class User:
   def __init__(self, id=None, username=None, password=None, user_type=None, subscriptions=None):
@@ -54,10 +54,3 @@ class User:
   @subscriptions.setter
   def subscriptions(self, subscriptions):
       self._subscriptions = subscriptions
-      
-  def add_subscription(self, subscription):
-    self._subscriptions.append(subscription)
-  
-  def remove_subscription(self, subscription):
-    if subscription in self._subscriptions:
-      self._subscriptions.remove(subscription)

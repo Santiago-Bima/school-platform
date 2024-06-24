@@ -23,7 +23,7 @@ class UserRepository:
     if connection:
       cursor = connection.cursor()
       try:
-        cursor.execute(f"DELETE FROM users where id=%s", (id,))
+        cursor.execute("DELETE FROM users where id=%s", (id,))
         connection.commit()
         return True
       except Exception as e:
@@ -40,7 +40,7 @@ class UserRepository:
     if connection:
       cursor = connection.cursor()
       try:
-        cursor.execute(f"UPDATE users SET username=%s,password=%s,id_type=%s WHERE id=%s", (user.username, user.password, user.user_type.value, id))
+        cursor.execute("UPDATE users SET username=%s,password=%s,id_type=%s WHERE id=%s", (user.username, user.password, user.user_type.value, id))
         connection.commit()
         return True
       except Exception as e:
@@ -57,7 +57,7 @@ class UserRepository:
     if connection:
       cursor = connection.cursor()
       try:
-        cursor.execute(f"INSERT INTO users (`username`, `password`, `id_type`) VALUES (%s, %s, %s) ", (user.username, user.password, user.user_type.value))
+        cursor.execute("INSERT INTO users (`username`, `password`, `id_type`) VALUES (%s, %s, %s) ", (user.username, user.password, user.user_type.value))
         connection.commit()
         return True
       except Exception as e:
@@ -74,7 +74,7 @@ class UserRepository:
     if connection:
       cursor = connection.cursor()
       try:
-        cursor.execute(f"SELECT * FROM users where username=%s", (username,))
+        cursor.execute("SELECT * FROM users where username=%s", (username,))
         rta = cursor.fetchone()
         return rta
       except Exception as e:
@@ -91,7 +91,7 @@ class UserRepository:
     if connection:
       cursor = connection.cursor()
       try:
-        cursor.execute(f"SELECT * FROM users where id=%s", (id,))
+        cursor.execute("SELECT * FROM users where id=%s", (id,))
         rta = cursor.fetchone()
         return rta
       except Exception as e:

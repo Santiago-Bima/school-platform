@@ -17,17 +17,19 @@ class SubscriptionServiceImpl(SubscriptionService):
     self._mark_repository = MarkRepository()
   
   def get_by_user(self, username):
-    user = self._user_repository.get_user_by_name(username)
-    user_id = user[0]
-    
-    subscriptions = self._repository.get_by_user(user_id)
-    
-    if not subscriptions:
-      print('There are no subscriptions to any subject for this user')
+    user_data = self._user_repository.get_user_by_name(username)
+    if not user_data:
+      print('User not found')
       return False
-    
+
+    user_id = user_data[0]
+    subscriptions_data = self._repository.get_by_user(user_id)
+    if not subscriptions_data:
+      print('There are no subscriptions for this user')
+      return False
+
     subscriptions_obj = []
-    for i in subscriptions:
+    for i in subscriptions_data:
       subject = self._subject_repository.get_by_id(i[1])
       subject_obj = Subject(id=subject[0] ,name=subject[1], grade=Grade(subject[5]), price=subject[2])
       marks = self._mark_repository.get_by_subscription(i[0])
@@ -45,6 +47,7 @@ class SubscriptionServiceImpl(SubscriptionService):
     
     if rta:
       print('You have been subscribed correctly')
+    print()
   
   def desubscribe(self, id):
     if self._repository.delete(id):

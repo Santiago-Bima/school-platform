@@ -18,7 +18,7 @@ class UserServiceImpl(UserService):
     user.password = user.password.strip()
     
     existing_user = self._repository.get_user_by_name(user.username)
-    if existing_user is not None:
+    if existing_user:
       print('There is already a user with the same username. Please choose another one.')
       print()
       return False
@@ -26,67 +26,57 @@ class UserServiceImpl(UserService):
     result = self._repository.insert(user)
     if result:
       print(f'The user: {user.username} has been logged in.')
-      return result
-    else:
-      return False
+    
+    return result
 
   def get_by_username(self, username):
     username = username.lower()
-    user = self._repository.get_user_by_name(username)
-    
-    if user is None:
-      print("There isn't an user with that username")
+    user_data = self._repository.get_user_by_name(username)
+    if not user_data:
+      print("There isn't a user with that username")
+      print()
       return False
 
-    user = User(id=user[0], username=user[1], password=user[2], user_type=UserType(user[3]))
-    
-    return user
+    return User(id=user_data[0], username=user_data[1], password=user_data[2], user_type=UserType(user_data[3]))
 
   def user_validation(self, username, password):
     username = username.lower()
     user = self.get_by_username(username)
     
-    if not user:
+    if not user or user.password != password:
+      print('Invalid username or password')
       return False
-    
-    if user.password == password:
-      user_dto = User(id=None, username=user.username, user_type=user.user_type)
-      return user_dto
-    
-    print('The password is invalid')
-    return False
+
+    return User(id=None, username=user.username, user_type=user.user_type)
 
   def get_all(self):
-    rta = self._repository.get_all()
-    users = []
-    for i in rta:
-      subscriptions = self._subscriptions_repository.get_by_user(i[0])
-      subscriptions_objects = []
-      for j in subscriptions:
-        subject = self._subject_repository.get_by_id(j[1])
-        subscription = Subscription(subject=subject)
-        subscriptions_objects.append(subscription)
-      user = User(username=i[1], user_type=UserType(i[3]).name, id=i[0], subscriptions=subscriptions_objects)
-      users.append(user)
-    
+    users_data = self._repository.get_all()
+    users = [
+      User(
+        id=user_data[0], username=user_data[1], user_type=UserType(user_data[3]).name,
+        subscriptions=[
+          Subscription(subject=self._subject_repository.get_by_id(sub_data[1]))
+          for sub_data in self._subscriptions_repository.get_by_user(user_data[0])
+        ]
+      )
+      for user_data in users_data
+    ]
     return users
 
   def update(self, user, id):
     user.username = user.username.lower().strip()
     user.password = user.password.strip()
-    
+
     existing_user = self._repository.get_user_by_name(user.username)
     if existing_user and existing_user[0] != id:
-      print('There is already an user with the same username. Please choose another one.')
+      print('There is already a user with the same username. Please choose another one.')
       print()
       return False
-    
+
     result = self._repository.update(user, id)
     if result:
       print(f'The user: {user.username} has been updated.')
-      return result
-    else:
-      return False
+    return result
   
   def delete(self, id):
     if self._repository.delete(id):
@@ -94,8 +84,9 @@ class UserServiceImpl(UserService):
     print()
   
   def get_by_id(self, id):
-    user = self._repository.get_user_by_id(id)
+    user_data = self._repository.get_user_by_id(id)
+    if not user_data:
+      print("User not found")
+      return None
 
-    user = User(id=id, username=user[1], password=user[2], user_type=UserType(user[3]))
-    
-    return user
+    return User(id=id, username=user_data[1], password=user_data[2], user_type=UserType(user_data[3]))

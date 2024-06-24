@@ -49,20 +49,13 @@ class Subscription:
   def marks(self, marks):
     self._marks = marks
     
-  def add_mark(self, mark):
-    self._marks.append(mark)
-  
-  def remove_mark(self, mark):
-    if mark in self._marks:
-      self._marks.remove(mark)
-  
   def get_average(self):
     total = 0
     if len(self._marks) == 0:
       rta = 'There are no marks'
     else:
       for i in self._marks:
-        total += i.mark[0]
+        total += i.mark
       
       rta = str(round(total/len(self._marks)))
     return rta

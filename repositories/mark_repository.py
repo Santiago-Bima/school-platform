@@ -6,7 +6,7 @@ class MarkRepository:
     if connection:
       cursor = connection.cursor()
       try:
-        cursor.execute(f"SELECT * FROM marks where id_subscription = %s ORDER BY date ASC", (id_subscription,))
+        cursor.execute("SELECT * FROM marks where id_subscription = %s ORDER BY date ASC", (id_subscription,))
         rta = cursor.fetchall()
         return rta
       except Exception as e:
@@ -23,7 +23,7 @@ class MarkRepository:
     if connection:
       cursor = connection.cursor()
       try:
-        cursor.execute(f"SELECT * FROM marks where date = %s", (date,))
+        cursor.execute("SELECT * FROM marks where date = %s", (date,))
         rta = cursor.fetchall()
         return rta
       except Exception as e:
@@ -57,7 +57,7 @@ class MarkRepository:
     if connection:
       cursor = connection.cursor()
       try:
-        cursor.execute(f"UPDATE marks SET id_subscription=%s,mark=%s,date=%s WHERE id_mark=%s", (mark.id_subscription, mark.mark, mark.date ,id_mark))
+        cursor.execute("UPDATE marks SET id_subscription=%s,mark=%s,date=%s WHERE id_mark=%s", (mark.id_subscription, mark.mark, mark.date ,id_mark))
         connection.commit()
         return True
       except Exception as e:
@@ -74,7 +74,7 @@ class MarkRepository:
     if connection:
       cursor = connection.cursor()
       try:
-        cursor.execute(f"delete from marks WHERE id_mark=%s", (id_mark,))
+        cursor.execute("delete from marks WHERE id_mark=%s", (id_mark,))
         connection.commit()
         return True
       except Exception as e:

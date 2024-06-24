@@ -12,11 +12,7 @@ class MarkServiceImpl(MarkService):
     if not marks:
       return False
     
-    mark_objects = []
-    for i in marks:
-      mark = Mark(id_subscription = i[3], mark=i[1], id_mark=i[0], date=i[2])
-      mark_objects.append(mark)
-      
+    mark_objects = [Mark(id_subscription=i[3], mark=i[1], id_mark=i[0], date=i[2]) for i in marks]
     return mark_objects
   
   def insert(self, mark):
@@ -32,21 +28,16 @@ class MarkServiceImpl(MarkService):
     if result:
       print('The mark has been registered')
       print()
-      return result
     
-    return False  
+    return result
     
   def update(self, mark, id_mark):
     rta = self._repository.update(mark, id_mark)
     
     if rta:
       print('The mark has been updated')
-      return True
-    return False
+      
+    return rta
   
   def delete(self, id_mark):
-    rta = self._repository.delete(id_mark)
-    
-    if rta:
-      return True
-    return False
+    return self._repository.delete(id_mark)

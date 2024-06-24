@@ -49,21 +49,25 @@ class SubscriptionController:
     print()
     
     while True:
-      request = int(input('Which subject you want to subscribe?: '))
-      if request < 0 or request > cont:
-        print('The number is wrong')
+      try:
+        request = int(input('Which subject you want to subscribe?: '))
+        if request < 0 or request > cont:
+          print('The number is wrong')
+          print()
+          continue
+        
+        
+        if request == cont:
+          return
+        
+        user = self._user_service.get_by_username(username)
+        new_subscription = Subscription(subject=remaining_subjects[request], user=user)
+        
+        self._service.subscribe(new_subscription)
         print()
-        continue
-      
-      if request == cont:
         return
-      
-      user = self._user_service.get_by_username(username)
-      new_subscription = Subscription(subject=remaining_subjects[request], user=user)
-      
-      self._service.subscribe(new_subscription)
-      print()
-      return
+      except ValueError:
+        print("Invalid input. Please enter a valid number.")
   
   def desubscribe(self, username):
     subscriptions = self.get_all(username)
@@ -71,15 +75,18 @@ class SubscriptionController:
     print()
     
     while True:
-      request = int(input('Which subject you want to desubscribe?: '))
-      if request < 0 or request > len(subscriptions):
-        print('The number is wrong')
+      try:
+        request = int(input('Which subject you want to desubscribe?: '))
+        if request < 0 or request > len(subscriptions):
+          print('The number is wrong')
+          print()
+          continue
+        
+        if request == len(subscriptions):
+          return
+        
+        self._service.desubscribe(subscriptions[request].id_subscription)
         print()
-        continue
-      
-      if request == len(subscriptions):
         return
-      
-      self._service.desubscribe(subscriptions[request].id_subscription)
-      print()
-      return
+      except ValueError:
+        print("Invalid input. Please enter a valid number.")

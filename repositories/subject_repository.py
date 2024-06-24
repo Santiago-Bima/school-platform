@@ -23,7 +23,7 @@ class SubjectRepository:
     if connection:
       cursor = connection.cursor()
       try:
-        cursor.execute(f"SELECT * FROM subjects where name LIKE %s AND grade = %s", (name, grade))
+        cursor.execute("SELECT * FROM subjects where name LIKE %s AND grade = %s", (name, grade))
         rta = cursor.fetchone()
         return rta
       except Exception as e:
@@ -40,7 +40,7 @@ class SubjectRepository:
     if connection:
       cursor = connection.cursor()
       try:
-        cursor.execute(f"UPDATE subjects SET name=%s,price=%s,begining_date=%s, final_date=%s, grade=%s WHERE id=%s", (subject.name, subject.name, subject.begining_date, subject.final_date, subject.grade.value ,id))
+        cursor.execute("UPDATE subjects SET name=%s,price=%s,begining_date=%s, final_date=%s, grade=%s WHERE id=%s", (subject.name, subject.price, subject.begining_date, subject.final_date, subject.grade.value ,id))
         connection.commit()
         return True
       except Exception as e:
@@ -57,7 +57,7 @@ class SubjectRepository:
     if connection:
       cursor = connection.cursor()
       try:
-        cursor.execute(f"insert into subjects SET name=%s,price=%s,begining_date=%s, final_date=%s, grade=%s", (subject.name, subject.price, subject.begining_date, subject.final_date, subject.grade.value))
+        cursor.execute("insert into subjects SET name=%s,price=%s,begining_date=%s, final_date=%s, grade=%s", (subject.name, subject.price, subject.begining_date, subject.final_date, subject.grade.value))
         connection.commit()
         return True
       except Exception as e:
@@ -74,7 +74,7 @@ class SubjectRepository:
     if connection:
       cursor = connection.cursor()
       try:
-        cursor.execute(f"DELETE FROM subjects WHERE id=%s", (id,))
+        cursor.execute("DELETE FROM subjects WHERE id=%s", (id,))
         connection.commit()
         return True
       except Exception as e:
@@ -91,7 +91,7 @@ class SubjectRepository:
     if connection:
       cursor = connection.cursor()
       try:
-        cursor.execute(f"SELECT * FROM subjects where id = %s", (id,))
+        cursor.execute("SELECT * FROM subjects where id = %s", (id,))
         rta = cursor.fetchone()
         return rta
       except Exception as e:

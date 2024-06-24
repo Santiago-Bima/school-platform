@@ -23,7 +23,7 @@ class SubscriptionRepository:
     if connection:
       cursor = connection.cursor()
       try:
-        cursor.execute(f"SELECT * FROM subscriptions where id_user = %s", (id_user,))
+        cursor.execute("SELECT * FROM subscriptions where id_user = %s", (id_user,))
         rta = cursor.fetchall()
         return rta
       except Exception as e:
@@ -40,7 +40,7 @@ class SubscriptionRepository:
     if connection:
       cursor = connection.cursor()
       try:
-        cursor.execute(f"insert into subscriptions SET id_subject=%s, id_user=%s", (subscription.subject.id, subscription.user.id))
+        cursor.execute("insert into subscriptions SET id_subject=%s, id_user=%s", (subscription.subject.id, subscription.user.id))
         connection.commit()
         return True
       except Exception as e:
@@ -57,7 +57,7 @@ class SubscriptionRepository:
     if connection:
       cursor = connection.cursor()
       try:
-        cursor.execute(f"DELETE FROM subscriptions WHERE id_subscription=%s", (id,))
+        cursor.execute("DELETE FROM subscriptions WHERE id_subscription=%s", (id,))
         connection.commit()
         return True
       except Exception as e:

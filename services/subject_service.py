@@ -1,22 +1,22 @@
-from abc import ABC, abstractclassmethod
+from abc import ABC, abstractmethod
 
 class SubjectService(ABC):
-  @abstractclassmethod
+  @abstractmethod
   def get_all(self):
     pass
   
-  @abstractclassmethod
+  @abstractmethod
   def get_by_name_and_grade(self, name, grade):
     pass
   
-  @abstractclassmethod
+  @abstractmethod
   def update(self, subject, id):
     pass
   
-  @abstractclassmethod
+  @abstractmethod
   def insert(self, subject):
     pass
   
-  @abstractclassmethod
+  @abstractmethod
   def delete(self, id):
     pass
